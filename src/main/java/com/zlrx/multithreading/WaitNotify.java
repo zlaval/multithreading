@@ -22,21 +22,8 @@ public class WaitNotify {
     public static void main(String[] args) {
         WaitNotify waitNotify = new WaitNotify();
 
-        Thread t1 = new Thread(() -> {
-            try {
-                waitNotify.produce();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        Thread t2 = new Thread(() -> {
-            try {
-                waitNotify.consume();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        Thread t1 = MultiThread.createThread(waitNotify::produce);
+        Thread t2 = MultiThread.createThread(waitNotify::consume);
 
         t1.start();
         t2.start();
